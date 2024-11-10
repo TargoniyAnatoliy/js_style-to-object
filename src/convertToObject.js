@@ -7,15 +7,11 @@
  */
 function convertToObject(sourceString) {
   const input = sourceString.split(';');
-  const result = {};
-
-  input.forEach((property) => {
+  const result = input.reduce((acc, property) => {
     const [key, value] = property.split(':');
 
-    if (value) {
-      result[key.trim()] = value.trim();
-    }
-  });
+    return value ? { ...acc, [key.trim()]: value.trim() } : { ...acc };
+  }, {});
 
   return result;
 }
